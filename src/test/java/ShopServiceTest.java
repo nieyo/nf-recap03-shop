@@ -35,4 +35,26 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void getOrderListByStateTest(){
+        ShopService shopService = new ShopService();
+        List<String> productsIds1 = List.of("1", "3");
+        List<String> productsIds2 = List.of("1", "2");
+        Order order1 = shopService.addOrder(productsIds1);
+        Order order2 = shopService.addOrder(productsIds1);
+        Order order3 = shopService.addOrder(productsIds2);
+        OrderState state = OrderState.PROCESSING;
+
+        List<Order> orders = shopService.getOrderListByState(state);
+
+        for (Order order : orders) {
+            assertEquals(state, order.status());
+        }
+        assertNotNull(orders);
+        assertEquals(2, orders.size());
+        assertTrue(orders.contains(order1));
+        assertTrue(orders.contains(order2));
+        assertFalse(orders.contains(order3));
+    }
 }
