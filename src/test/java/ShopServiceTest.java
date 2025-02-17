@@ -40,7 +40,6 @@ class ShopServiceTest {
     void getOrderListByStateTest(){
         ShopService shopService = new ShopService();
         List<String> productsIds1 = List.of("1", "3");
-        List<String> productsIds2 = List.of("1", "2");
         Order order1 = shopService.addOrder(productsIds1);
         Order order2 = shopService.addOrder(productsIds1);
         OrderState state = OrderState.PROCESSING;
