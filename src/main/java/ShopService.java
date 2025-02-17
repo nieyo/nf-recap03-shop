@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class ShopService {
@@ -14,7 +15,7 @@ public class ShopService {
                 products.add(productToOrder);
             } else {
                 System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
-                return null;
+                throw new NoSuchElementException();
             }
 
 
