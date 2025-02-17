@@ -9,12 +9,15 @@ public class ShopService {
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
-            Product productToOrder = productRepo.getProductById(productId);
-            if (productToOrder == null) {
+            if (productRepo.getProductById(productId).isPresent()){
+                Product productToOrder = productRepo.getProductById(productId).get();
+                products.add(productToOrder);
+            } else {
                 System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
                 return null;
             }
-            products.add(productToOrder);
+
+
         }
 
         Order newOrder = new Order(UUID.randomUUID().toString(), products);
