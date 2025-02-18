@@ -27,7 +27,10 @@ public class ShopService {
 
     public Optional<Order> updateOrder(String id, OrderState newOrderState) {
         Order existingOrder = orderRepo.getOrderById(id);
-        if (existingOrder == null) {
+        if (existingOrder == null ) {
+            return Optional.empty();
+        }
+        if (existingOrder.state() == newOrderState){
             return Optional.empty();
         }
         Order updatedOrder = existingOrder.withState(newOrderState);

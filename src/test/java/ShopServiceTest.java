@@ -71,4 +71,16 @@ class ShopServiceTest {
         assertEquals(originalOrder.products(), updatedOrder.products());
         assertNotEquals(originalOrder.state(), updatedOrder.state());
     }
+
+
+    @Test
+    void updateOrderTest_whenSameStateIsSet() {
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "3");
+        Order originalOrder = shopService.addOrder(productsIds);
+
+        Optional<Order> updatedOrderOptional = shopService.updateOrder(originalOrder.id(), originalOrder.state());
+
+        assertFalse(updatedOrderOptional.isPresent());
+    }
 }
