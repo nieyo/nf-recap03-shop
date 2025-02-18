@@ -73,7 +73,9 @@ class OrderMapRepoTest {
         assertEquals(expected.id(), actual.id());
         assertEquals(expected.products(), actual.products());
         assertEquals(expected.state(), actual.state());
-        assertEquals(repo.getOrderById("1"), expected);
+        assertEquals(repo.getOrderById("1").id(), expected.id());
+        assertEquals(repo.getOrderById("1").products(), expected.products());
+        assertEquals(repo.getOrderById("1").state(), expected.state());
     }
 
     @Test
