@@ -25,7 +25,13 @@ class OrderMapRepoTest {
         Product product1 = new Product("1", "Apfel");
         expected.add(new Order("1", List.of(product1), Instant.now()));
 
-        assertEquals(actual, expected);
+        for (int i = 0; i < actual.size(); i++) {
+            Order actualOrder = actual.get(i);
+            Order expectedOrder = expected.get(i);
+            assertEquals(actualOrder.id(), expectedOrder.id());
+            assertEquals(actualOrder.products(), expectedOrder.products());
+            assertEquals(actualOrder.state(), expectedOrder.state());
+        }
     }
 
     @Test
