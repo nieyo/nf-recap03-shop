@@ -1,3 +1,5 @@
 public enum OrderState {
-    PROCESSING
+    PROCESSING,
+    IN_DELIVERY,
+    COMPLETED
 }

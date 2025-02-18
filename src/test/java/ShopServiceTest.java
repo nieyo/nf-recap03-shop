@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ class ShopServiceTest {
         Order expected = new Order("-1", List.of(new Product("1", "Apfel")));
         assertEquals(expected.products(), actual.products());
         assertNotNull(expected.id());
-        assertEquals(expectedStatus, actual.status());
+        assertEquals(expectedStatus, actual.state());
     }
 
     @Test
@@ -47,11 +48,27 @@ class ShopServiceTest {
         List<Order> orders = shopService.getOrderListByState(state);
 
         for (Order order : orders) {
-            assertEquals(state, order.status());
+            assertEquals(state, order.state());
         }
         assertNotNull(orders);
         assertEquals(2, orders.size());
         assertTrue(orders.contains(order1));
         assertTrue(orders.contains(order2));
+    }
+
+    @Test
+    void updateOrderTest_whenNewStateIsSet() {
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "3");
+        Order originalOrder = shopService.addOrder(productsIds);
+
+        Optional<Order> updatedOrderOptional = shopService.updateOrder(originalOrder.id(), OrderState.IN_DELIVERY);
+
+        assertTrue(updatedOrderOptional.isPresent());
+        Order updatedOrder = updatedOrderOptional.get();
+        assertEquals(OrderState.IN_DELIVERY, updatedOrder.state());
+        assertEquals(originalOrder.id(), updatedOrder.id());
+        assertEquals(originalOrder.products(), updatedOrder.products());
+        assertNotEquals(originalOrder.state(), updatedOrder.state());
     }
 }
