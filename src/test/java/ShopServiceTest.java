@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -19,10 +21,12 @@ class ShopServiceTest {
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
-        Order expected = new Order("-1", List.of(new Product("1", "Apfel")));
+        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), Instant.now());
         assertEquals(expected.products(), actual.products());
         assertNotNull(expected.id());
         assertEquals(expectedStatus, actual.state());
+        //
+        assertNotNull(actual.timestamp());
     }
 
     @Test
@@ -70,6 +74,7 @@ class ShopServiceTest {
         assertEquals(originalOrder.id(), updatedOrder.id());
         assertEquals(originalOrder.products(), updatedOrder.products());
         assertNotEquals(originalOrder.state(), updatedOrder.state());
+        assertEquals(originalOrder.timestamp(), updatedOrder.timestamp());
     }
 
 

@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.*;
 
 public class ShopService {
@@ -15,7 +16,7 @@ public class ShopService {
                 throw new NoSuchElementException();
             }
         }
-        Order newOrder = new Order(UUID.randomUUID().toString(), products);
+        Order newOrder = new Order(UUID.randomUUID().toString(), products, Instant.now());
         return orderRepo.addOrder(newOrder);
     }
 
