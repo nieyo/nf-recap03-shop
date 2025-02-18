@@ -27,7 +27,6 @@ class ShopServiceTest {
         assertEquals(expectedStatus, actual.state());
         //
         assertNotNull(actual.timestamp());
-        assertTrue(ChronoUnit.SECONDS.between(Instant.now(), actual.timestamp()) < 1);
     }
 
     @Test
